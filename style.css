@@ -1,0 +1,39 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    background-color: #e8e8e8;
+    font-family: "Ubuntu", sans-serif;
+    font-weight: 300;
+    font-style: normal;
+}
+body{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%,-50%);
+}
+.gridContainer{
+    max-width: max-content;
+    display: grid;
+    grid-template-columns: repeat(4, 100px);
+    grid-template-rows: repeat(4, 100px);
+    gap: 10px;
+    background-color: #bdb7b2;
+    padding: 10px;
+    border-radius: 12px;
+}
+.tile{
+    width: 100px;
+    height: 100px;
+    background-color: #5bd5eb;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    /* color: #ff6e55; */
+    color: #000;
+    border-radius: 8px;
+    /* border: 2px solid black; */
+}
