@@ -9,11 +9,20 @@ function canMove() {
     return false
 }
 function checkGameStatus() {
+    const gameOver = document.getElementById('gameOver');
+    const gameResult= document.getElementById('gameResult');
+    const finalScore= document.getElementById("finalScore");
     if(board.flat().includes(2048)){
-        alert("You Won!");
+        gameResult.textContent = "You Won!";
+        gameResult.style.color = "#edc22e";
+        finalScore.textContent= score;
+        gameOver.classList.add('visible');
     } 
     else if(!canMove()){
-        alert("You Lost! Try Again?")
+        gameResult.textContent = "Game Over!";
+        gameResult.style.color = "#f65e3b";
+        finalScore.textContent= score;
+        gameOver.classList.add('visible');    
     }
 }
 function reset(){
@@ -27,6 +36,7 @@ function reset(){
     spawnTile();
     spawnTile();
     updateBoard();
+    document.getElementById('gameOver').classList.remove('visible');
 }
 function start(){
     spawnTile();
