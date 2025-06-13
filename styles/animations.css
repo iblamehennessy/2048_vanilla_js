@@ -1,0 +1,20 @@
+.new-tile{
+    animation: popIn .3s ease;
+}
+@keyframes popIn {
+    0%{transform: scale(.5); opacity: 0;}
+    70%{transform: scale(1.1);}
+    100%{transform: scale(1); opacity: 1;}
+}
+.merged-tile{
+    z-index: 2;
+    animation: pulse .3s ease;
+}
+.pulse{
+    animation: pulse .3s ease;
+}
+@keyframes pulse {
+    0%{transform: scale(1);}
+    50%{transform: scale(1.1);}
+    100%{transform: scale(1);}
+}

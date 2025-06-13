@@ -1,0 +1,30 @@
+.tile{
+    width: 100px;
+    height: 100px;
+    background-color: #cdc1b4;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 28px;
+    font-weight: bold;
+    color: #000;
+    border-radius: 8px;
+    transition: background-color .2s ease;
+    box-shadow: inset 0 -4px 0 rgba(0, 0, 0, .1),
+                      0 4px 8px rgba(0, 0, 0, .15);
+    transition: all .15 ease-in-out;
+    position: relative;
+    z-index: 1;
+}
+.tile:not([class*="number=0"]){
+    background-image: linear-gradient(to bottom, rgba(255, 255, 255, .3), transparent);
+}
+.sliding{
+    transition: transform .15s ease;
+}
+.number-2, .number-4{
+    color: #776e65;
+}
+.number-8, .number-16, .number-32, .number-64, .number-128, .number-256, .number-512, .number-1024, .number-2048 {
+    color: #f9f6f2;
+}

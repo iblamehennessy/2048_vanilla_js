@@ -4,7 +4,15 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>2048</title>
-    <link rel="stylesheet" href="style.css">
+
+    <link rel="stylesheet" href="styles/main.css">
+    <link rel="stylesheet" href="styles/animations.css">
+    <link rel="stylesheet" href="styles/utilities.css">
+    <link rel="stylesheet" href="styles/components/gameBoard.css">
+    <link rel="stylesheet" href="styles/components/overlay.css">
+    <link rel="stylesheet" href="styles/components/tiles.css">
+
+    <link rel="icon" href="ico.svg" type="image/svg">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
@@ -39,7 +47,16 @@
         </div>
     </div>
     <button class="btn" onclick="reset()">Reset</button>
-    <script src="script.js"></script>
-    <script src="script2.js"></script>
+    <script src="scripts/utils/helpers.js"></script>
+
+    <script src="scripts/core/gameState.js"></script>
+    <script src="scripts/core/movement.js"></script>
+    <script src="scripts/core/rules.js"></script>
+
+    <script src="scripts/ui/render.js"></script>
+    <script src="scripts/ui/controls.js"></script>
+
+    <script src="scripts/main.js"></script>
+
 </body>
 </html>
