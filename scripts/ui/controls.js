@@ -23,3 +23,40 @@ document.addEventListener("keydown", (e) => {
         }
     }
 });
+function setupTouchControls() {
+    var touchStartX = 0;
+    var touchStartY = 0;
+    var touchEndX = 0;
+    var touchEndY = 0;
+    document.addEventListener("touchStart", (e) => {
+        touchStartX= e.changedTouches[0].screenX;
+        touchStartY= e.changedTouches[0].screenY; 
+    });
+    document.addEventListener("touchEnd", (e) => {
+        touchEndX= e.changedTouches[0].screenX;
+        touchEndY= e.changedTouches[0].screenY; 
+
+        handleSwipeGesture();
+    });
+
+function handleSwipeGesture(){
+    const deltaX = touchEndX-touchStartX;
+    const deltaY= touchEndY-touchStartY;
+    if(Math.abs(deltaX)>Math.abs(deltaY)){ 
+        if(deltaX >0){  //horizontal
+            moveRight()
+        }
+        else{
+            moveLeft()
+        }
+    } 
+        else{
+            if(deltaY >0){ //vertical
+                moveDown()
+        }
+        else{
+            moveUp()
+        }
+    }
+}
+}
