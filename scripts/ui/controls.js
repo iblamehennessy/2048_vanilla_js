@@ -24,39 +24,48 @@ document.addEventListener("keydown", (e) => {
     }
 });
 function setupTouchControls() {
-    var touchStartX = 0;
-    var touchStartY = 0;
-    var touchEndX = 0;
-    var touchEndY = 0;
+    let touchStartX = 0;
+    let touchStartY = 0;
+    const minSwipeDistance = 20;
+    let canSwipe= true;
     document.addEventListener("touchstart", (e) => {
-        touchStartX= e.changedTouches[0].screenX;
-        touchStartY= e.changedTouches[0].screenY; 
-    });
+        if(!canSwipe) return;
+        touchStartX= e.touches[0].clientX;
+        touchStartY= e.touches[0].clientY;
+        e.preventDefault(); 
+    }, {passive:false});
+
+    document.addEventListener("touchmove", (e) =>{
+        e.passiveDefault();
+    }, {passive:false})
+
     document.addEventListener("touchend", (e) => {
-        touchEndX= e.changedTouches[0].screenX;
-        touchEndY= e.changedTouches[0].screenY; 
+        if(!canSwipe) return;
+        touchEndX= e.changedTouches[0].clientX;
+        touchEndY= e.changedTouches[0].clientY; 
 
-        handleSwipeGesture();
-    });
+        const deltaX = touchEndX - touchStartX;
+        const deltaY= touchEndY - touchStartY;
+        const absDeltaX = Math.abs(deltaX);
+        const absDeltaY = Math.abs(deltaY);
 
-function handleSwipeGesture(){
-    const deltaX = touchEndX-touchStartX;
-    const deltaY= touchEndY-touchStartY;
-    if(Math.abs(deltaX)>Math.abs(deltaY)){ 
-        if(deltaX >0){  //horizontal
-            moveRight();
+        if(Math.max(absDeltaX, absDeltaY)<minSwipeDistance) return;
+
+        canSwipe=false;
+        let moved=false;
+        if(absDeltaX > absDeltaY) {
+            moved= deltaX > 0 ? moveRight() : moveLeft();
         }
         else{
-            moveLeft();
+            moved= deltaY > 0 ? moveDown() : moveUp();
         }
-    } 
-        else{
-            if(deltaY >0){ //vertical
-                moveDown();
+        if(moved){
+            spawnTile();
+            updateBoard();
+            checkGameStatus();
         }
-        else{
-            moveUp();
-        }
+        setTimeout(() => canSwipe = true, 200);
+        e.preventDefault();
+    }, {passive:false});
+
     }
-}
-}
