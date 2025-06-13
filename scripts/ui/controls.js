@@ -36,7 +36,7 @@ function setupTouchControls() {
     }, {passive:false});
 
     document.addEventListener("touchmove", (e) =>{
-        e.passiveDefault();
+        e.preventDefault();
     }, {passive:false})
 
     document.addEventListener("touchend", (e) => {
