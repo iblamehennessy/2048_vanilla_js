@@ -1,3 +1,21 @@
+const tileColors = {
+  0: "#cdc1b4",
+  2: "#eee4da",
+  4: "#ede0c8",
+  8: "#f2b179",
+  16: "#f59563",
+  32: "#f67c5f",
+  64: "#f65e3b",
+  128: "#edcf72",
+  256: "#edcc61",
+  512: "#edc850",
+  1024: "#edc53f",
+  2048: "#edc22e",
+};
+var score = 0;
+function updateScore(){
+    document.getElementById("score").textContent= `Score: ${score}`;
+}
 var board = [
     [0,0,0,0],
     [0,0,0,0],
@@ -8,11 +26,16 @@ function updateBoard(){
     for (var r = 0; r < 4; r++){
         for (var c = 0; c < 4; c++){
             const tileID = r*4+c;
-            const tile = document.getElementById(`tile${tileID}`);
+            const tile = document.getElementById(`tile${tileID + 1}`);
             const value = board[r][c];
-            if (tile) tile.textContent = value === 0 ? "" : value;
+            if (tile) { tile.textContent = value === 0 ? "" : value;
+            tile.style.backgroundColor = tileColors[value] || "#3c3a32";
+            tile.className = "tile";
+            if(value > 0) tile.classList.add(`number-${value}`);
+            }
         }
     }
+    updateScore();
 }
 function spawnTile(){
     var empty =[];
@@ -26,37 +49,42 @@ function spawnTile(){
     board[rIndex][cIndex] = Math.random() < .9 ? 2 : 4;
 }
 document.addEventListener("keydown", (e) => {
-    var moved = false;
-    switch(e.key){
-        case "ArrowLeft":
-            moved = moveLeft();
-            break;
-        case "ArrowUp":
-            moved = moveUp();
-            break;
-        case "ArrowDown":
-            moved = moveDown();
-            break;
-        case "ArrowRight":
-            moved = moveRight();
-            break;
+    if(["ArrowLeft", "ArrowUp", "ArrowDown", "ArrowRight"].includes(e.key)) {
+        e.preventDefault();
+        var moved = false;
+        switch(e.key){
+            case "ArrowLeft":
+                moved = moveLeft();
+                break;
+            case "ArrowUp":
+                moved = moveUp();
+                break;
+            case "ArrowDown":
+                moved = moveDown();
+                break;
+            case "ArrowRight":
+                moved = moveRight();
+                break;
     }
     if(moved){
         spawnTile();
         updateBoard();
+        checkGameStatus();
+        }
     }
 })
 function moveRowLeft(row){
-    row=row.filter(val => val!== 0);
-    for(var i = 0; i < row.length - 1;i++){
-        if(row[i] === row[i+1]){
-            row[i] *= 2;
-            row[i + 1] = 0;
+    var newRow =row.filter(val => val!== 0);
+    for(var i = 0; i < newRow.length - 1;i++){
+        if(newRow[i] === newRow[i+1]){
+            newRow[i] *= 2;
+            score += newRow[i];
+            newRow[i + 1] = 0;
         }
     }
-    row = row.filter(val => val !== 0);
-    while(row.length < 4) row.push(0);
-    return row;
+    newRow = newRow.filter(val => val !== 0);
+    while(newRow.length < 4) newRow.push(0);
+    return newRow;
 }
 function moveLeft(){
     var moved = false;
@@ -72,7 +100,7 @@ function moveLeft(){
 function moveRight(){
     var moved = false;
     for(var r = 0; r < 4; r++){
-       var row = board[r].slice().reverse();
+       var row = [...board[r]].reverse();
        var newRow = moveRowLeft(row).reverse();
        if(newRow.toString() !== board[r].toString()){
         board[r] = newRow;
@@ -86,19 +114,13 @@ function transpose(matrix){
 }
 function moveUp(){
     board = transpose(board);
-    let moved = moveLeft();
+    var moved = moveLeft();
     board = transpose(board);
     return moved;
 }
 function moveDown(){
     board = transpose(board);
-    let moved = moveRight();
+    var moved = moveRight();
     board = transpose(board);
     return moved;
 }
-function start(){
-    spawnTile();
-    spawnTile();
-    updateBoard();
-}
-start()
