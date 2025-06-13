@@ -28,11 +28,11 @@ function setupTouchControls() {
     var touchStartY = 0;
     var touchEndX = 0;
     var touchEndY = 0;
-    document.addEventListener("touchStart", (e) => {
+    document.addEventListener("touchstart", (e) => {
         touchStartX= e.changedTouches[0].screenX;
         touchStartY= e.changedTouches[0].screenY; 
     });
-    document.addEventListener("touchEnd", (e) => {
+    document.addEventListener("touchend", (e) => {
         touchEndX= e.changedTouches[0].screenX;
         touchEndY= e.changedTouches[0].screenY; 
 
@@ -44,18 +44,18 @@ function handleSwipeGesture(){
     const deltaY= touchEndY-touchStartY;
     if(Math.abs(deltaX)>Math.abs(deltaY)){ 
         if(deltaX >0){  //horizontal
-            moveRight()
+            moveRight();
         }
         else{
-            moveLeft()
+            moveLeft();
         }
     } 
         else{
             if(deltaY >0){ //vertical
-                moveDown()
+                moveDown();
         }
         else{
-            moveUp()
+            moveUp();
         }
     }
 }
