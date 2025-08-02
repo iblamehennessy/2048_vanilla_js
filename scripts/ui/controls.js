@@ -35,11 +35,11 @@ function setupTouchControls() {
         e.preventDefault(); 
     }, {passive:false});
 
-    document.addEventListener("touchmove", (e) =>{
+    document.getElementById("touchpad").addEventListener("touchmove", (e) =>{
         e.preventDefault();
     }, {passive:false})
 
-    document.addEventListener("touchend", (e) => {
+    document.getElementById("touchpad").addEventListener("touchend", (e) => {
         if(!canSwipe) return;
         touchEndX= e.changedTouches[0].clientX;
         touchEndY= e.changedTouches[0].clientY; 
