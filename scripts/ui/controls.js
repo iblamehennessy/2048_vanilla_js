@@ -69,3 +69,15 @@ function setupTouchControls() {
     }, {passive:false});
 
     }
+
+// Existing touch event bindings in controls.js
+document.addEventListener("touchstart", function (e) {
+    // Ignore swipe handling if tapping UI buttons or overlays
+    if (e.target.closest(".btn, #overlay")) return;
+    handleTouchStart(e);
+}, { passive: false });
+
+document.addEventListener("touchend", function (e) {
+    if (e.target.closest(".btn, #overlay")) return;
+    handleTouchEnd(e);
+}, { passive: false });
